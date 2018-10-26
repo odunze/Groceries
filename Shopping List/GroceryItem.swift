@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+struct Grocery: Codable {
+    var name: String
+    var image: Data?
+    var imageName: String
+    var added: Bool = false
+    
+    init(name: String, imageName: String) {
+        self.name = name
+        self.imageName = imageName
+    }
+
+}
