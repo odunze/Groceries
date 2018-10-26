@@ -11,13 +11,62 @@ import UIKit
 
 class NotificationView: UIViewController {
     
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var addressField: UITextField!
+    @IBOutlet weak var messageLabel: UILabel!
+    
+    var myGroceryRef: GroceriesManager?
+    var myNotifierRef: Notifier?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        reloadListView()
+        
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func notifyButton(_ sender: UIButton) {
+        
+        guard let name = nameField.text, !name.isEmpty else { return }
+        guard let address = addressField.text, !address.isEmpty else { return }
+        
+        guard let allGroceries = myGroceryRef?.groceries else { return }
+        guard var selectBag = myGroceryRef?.selections else { return }
+
+        
+        for selectedItem in allGroceries {
+            
+            if selectedItem.added == true {
+                selectBag.append(selectedItem)
+            }
+        }
+        
+        let itemCount = selectBag.count
+        
+        
+        //Ask for notification Permission
+        Notifier().AskPermission { success in
+            if success {
+                Notifier().Notify(name: name, address: address, itemCount: itemCount)
+            } else {
+                NSLog("Something went wrong trying to notify you")
+            }
+        }
+        navigationController?.popViewController(animated: true)
+    }
+    
+    private func reloadListView() {
+        guard let myItemController = myGroceryRef else { return }
+        
+        for selectedItem in myItemController.groceryList {
+            
+            if selectedItem.added == true {
+                selections.append(selectedItem)
+            }
+        }
+        
+        let itemCount = selections.count
+        messageLabel.text = "So far, You've added \(itemCount) item\(itemCount == 1 ? "" : "s")!"
+    }
+    
 }
-}
+

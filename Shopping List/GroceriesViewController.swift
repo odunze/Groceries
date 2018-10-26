@@ -25,7 +25,7 @@ class GroceriesView: UICollectionViewController, UICollectionViewDelegateFlowLay
         
         let shoppingItem = groceryRef.groceries[indexPath.item]
         
-        groceryRef.updateGrocery(singleItem: shoppingItem)
+        groceryRef.updateGrocery(selectedGrocery: shoppingItem)
         collectionView.reloadData()
         
     }
@@ -44,6 +44,8 @@ class GroceriesView: UICollectionViewController, UICollectionViewDelegateFlowLay
         if segue.identifier == "notifySegue" {
             guard let nextViewController = segue.destination as? NotificationView else {return}
             
+            nextViewController.myGroceryref = groceryRef
+            nextViewController.myNotifierRef = mynotifier
             
         }
     }
