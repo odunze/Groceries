@@ -82,7 +82,7 @@
         <!--Get Notified-->
         <scene sceneID="bfO-oc-2cg">
             <objects>
-                <viewController title="Get Notified" id="SGU-2V-rZi" sceneMemberID="viewController">
+                <viewController title="Get Notified" id="SGU-2V-rZi" customClass="NotificationView" customModule="Shopping_List" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jd0-9n-b0N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -119,11 +119,19 @@
                                 <rect key="frame" x="154" y="273" width="67" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Notify Me"/>
+                                <connections>
+                                    <action selector="notifyButton:" destination="SGU-2V-rZi" eventType="touchUpInside" id="ckA-1q-lTO"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="glY-Fs-7Ch"/>
                     </view>
+                    <connections>
+                        <outlet property="addressField" destination="RFR-vw-0RF" id="Sqo-6z-Bsv"/>
+                        <outlet property="messageLabel" destination="1Sb-jL-ptW" id="BIj-oc-yvb"/>
+                        <outlet property="nameField" destination="8E4-7s-tpH" id="xhm-AW-vzx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kH0-ye-dXG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

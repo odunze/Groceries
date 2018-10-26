@@ -35,14 +35,14 @@ class GroceriesManager {
         }
     }
     
-    func updateGrocery(selectedGrocery: Grocery) {
-        guard let index = groceries.index(of: selectedGrocery) else {return}
+   /*  func updateGrocery(selectedGrocery: Grocery) {
+
         var tempItem = selectedGrocery
         tempItem.added = !selectedGrocery.added //Change status of temp item to opposite
         groceries.remove(at: index)
         groceries.insert(tempItem, at: index)
         saveToPersistence()
-    }
+    } */
     
     //Create file
     var groceryFileURL: URL? {
