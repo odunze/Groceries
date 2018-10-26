@@ -57,14 +57,14 @@ class NotificationView: UIViewController {
     private func reloadListView() {
         guard let myItemController = myGroceryRef else { return }
         
-        for selectedItem in myItemController.groceryList {
+        for selectedItem in myGroceryRef?.groceries {
             
             if selectedItem.added == true {
-                selections.append(selectedItem)
+                myGroceryRef?.selections.append(selectedItem)
             }
         }
         
-        let itemCount = selections.count
+        let itemCount = myGroceryRef.selections.count
         messageLabel.text = "So far, You've added \(itemCount) item\(itemCount == 1 ? "" : "s")!"
     }
     
