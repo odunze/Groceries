@@ -16,35 +16,42 @@ class GroceriesView: UICollectionViewController, UICollectionViewDelegateFlowLay
     let mynotifier = Notifier()
     
     
-    
+    //Bases the number of cells on the number of items in grocery array
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return groceryRef.groceries.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let shoppingItem = groceryRef.groceries[indexPath.item]
-        
-        groceryRef.updateGrocery(selectedGrocery: shoppingItem)
-        collectionView.reloadData()
-        
-    }
-    
+    //Makes the cell being displayed the one with our data via reuse identifier
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "groceryCell", for: indexPath) as! GroceryCellController
         
-        let shoppingItem = groceryRef.groceries[indexPath.item]
-        cell.myGrocery = shoppingItem
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "groceryCell", for: indexPath) as! GroceryCellController //Cast the cell instance to match our custom Cell controller class.
+        
+        let shoppingItem = groceryRef.groceries[indexPath.item] //Grab index of current item
+        cell.myGrocery = shoppingItem //Cell shows the grocery that matches current item index
         
         return cell
     }
+    
+    //Toggles Added status by updating status of item whose index matches selected item
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectedItem = groceryRef.groceries[indexPath.item]
+        let itemIndex = IndexPath().item //Index of current item to Update.
+        
+        groceryRef.updateGrocery(selectedGrocery: selectedItem, selectedGroceryIndex: itemIndex) //Toggle status via function
+        
+        collectionView.reloadData() //Reload the view to reflect new status
+        
+    }
+    
+   
     
     //Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "notifySegue" {
             guard let nextViewController = segue.destination as? NotificationView else {return}
             
-            nextViewController.myGroceryref = groceryRef
+            nextViewController.myGroceryRef = groceryRef
             nextViewController.myNotifierRef = mynotifier
             
         }

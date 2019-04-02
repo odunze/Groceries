@@ -14,8 +14,9 @@ class GroceriesManager {
     
     var selections: [Grocery] = []
     
-    private let itemNames = ["apple", "grapes", "milk", "muffin", "popcorn", "soda", "strawberries"]
+    private let itemNames = ["agwa", "atarodo", "dawadawa", "egusi", "garri", "ji", "kilishi", "ugwu"]
     
+    //Check if item already exists in the persistence file
     let initKey = "Initialisation Check Key"
     
     init(){
@@ -35,14 +36,17 @@ class GroceriesManager {
         }
     }
     
-   /*  func updateGrocery(selectedGrocery: Grocery) {
-
-        var tempItem = selectedGrocery
-        tempItem.added = !selectedGrocery.added //Change status of temp item to opposite
-        groceries.remove(at: index)
-        groceries.insert(tempItem, at: index)
+    func updateGrocery(selectedGrocery: Grocery, selectedGroceryIndex: Int) {
+        var tempGrocery = groceries[selectedGroceryIndex]
+        tempGrocery.added = !selectedGrocery.added //Change status of temp item to opposite
+        if tempGrocery.added == true {
+        groceries.remove(at: selectedGroceryIndex)
+            selections.insert(tempGrocery, at: selectedGroceryIndex) }
+        else { selections.remove(at: selectedGroceryIndex)
+            groceries.insert(tempGrocery, at: selectedGroceryIndex)
+        }
         saveToPersistence()
-    } */
+    }
     
     //Create file
     var groceryFileURL: URL? {
